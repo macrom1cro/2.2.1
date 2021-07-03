@@ -28,13 +28,12 @@ public class UserDaoImp implements UserDao {
       return query.getResultList();
    }
 
-   public void getUserByCar(String model, int series){
+   public User getUserByCar(String model, int series){
       String HQL="FROM Car c LEFT OUTER JOIN FETCH c.user WHERE c.model=:carModel and c.series=:carSeries";
       Query<Car> query = sessionFactory.getCurrentSession().createQuery(HQL, Car.class);
       query.setParameter("carModel", model);
       query.setParameter("carSeries", series);
-      Car car = query.uniqueResult();
-      System.out.println("\n" + car.getUser() + "\n");
+      return query.uniqueResult().getUser();
    }
 
 }
